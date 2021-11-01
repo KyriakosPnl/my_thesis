@@ -1,0 +1,25 @@
+1|El Adobe|3.5|33.499466|-117.6625|Mexican, American, Caribbean, Latin American
+2|Jack's Restaurant|4|34.864594|-120.44726|Bakery, American, Burgers, Chicken, Fast Food, Salad, Steak, Subs
+3|Yoshino River Park|3.5|36.849474|-119.784166666667|Sushi, Japanese
+4|Comfort Cafe|3.5|34.015477|-118.49252646|American, Healthy, Sandwiches, Burgers, Ice Cream, Juices, Seafood, Smoothies, Soup, Steak
+5|Hinano Café|4|33.979293|-118.466451|Burgers, Pub Food, Sandwiches
+6|Palms|4|34.397338|-119.520776|Californian, Seafood, American, Chicken, Steak
+7|Fuzhou Super Buffet|4|38.09562|-122.562614|Chinese, Buffet
+8|Chiaramonte's Deli and Sausages|4|37.353099|-121.886424|Deli, Catering, Sandwiches
+9|Philippe The Original|4.5|34.059767|-118.23675|Sandwiches, American, Salad, Deli, French, Soup
+10|Barstow Station Liquor|3.5|34.891606|-117.000213|Fast Food
+11|Luigi's|4.5|35.374537|-118.993195|Italian, Deli, American
+12|McDonald's|1.5|37.781337|-122.420093|American, Burgers, Fast Food
+13|Swan Oyster Depot|4.5|37.79072|-122.42071|Seafood, American, Traditional
+14|Clearman's Galley|4|34.128218|-118.073139|American, Seafood
+15|Balboa Cafe|4|37.798894|-122.43589|American, Burgers, Californian, Mediterranean
+16|Sam's for Play Cafe and Catering On Cleveland Ave|4.5|38.462831|-122.728381|Catering, Diner
+17|Farmer Boys Restaurant|3.5|33.832059|-117.985020875931|American, Burgers, Fast Food
+18|The Farm Of Beverly Hills|4|34.072022|-118.35754|American, Californian, Coffee, Sandwiches, Tea
+19|St. Francis Fountain|4|37.75285167|-122.40827|American, Diner, Coffee, Deli, Ice Cream, Frozen Yogurt, Sandwiches
+20|A G Ferrari Foods|4|37.368496|-122.03496|Deli, Catering, Italian, Sandwiches
+21|A&W Restaurant|3|36.302863|-119.135775|American, Burgers, Hot Dogs, Chicken, Fast Food, Pub Food, Sandwiches
+22|Camilo's Fine Cuisine and Catering|4|34.139198|-118.213025|Californian, French, Contemporary, Latin
+23|Musso and Frank Grill|3|34.101572|-118.335352|American, Steak, Continental, Seafood, Barbecue, Deli, European, Steakhouse
+24|Barney's Beanery|3|34.0905|-118.374115|American, Traditional, Diner, Bagels, Barbecue, Burgers,Deli, Donuts, Pizza,Sandwiches
+25|Bistango Cafe|4|34.02491|-118.27809|Italian, American, Pizza, Sandwiches, Pasta, Salad
