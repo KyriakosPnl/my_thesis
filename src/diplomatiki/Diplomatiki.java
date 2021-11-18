@@ -1,6 +1,3 @@
-/*
-321/2011117 Πάναλης Κυριάκος
- */
 package diplomatiki;
 
 import java.io.IOException;
@@ -8,11 +5,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*Η κλάση αυτή περιλαμβάνει την main μέθοδο, και σκοπός της είναι η κλήση 
-  των απαραίτητων συναρτήσεων για την λειτουργία του προγράμματος. Επίσης, 
-  εδώ δημιουργείτε και το μενού που προσφέρει κάποιες βασικές λειτουργίες
-  στον χρήστη*/
-
+/*This class contains the main method and calls the necessary methods, for the programm to work.
+  A very simple menu is also created in this class that ofers some basic functions*/
 public class Diplomatiki {
 
     /**
@@ -20,7 +14,7 @@ public class Diplomatiki {
      */
     public static void main(String[] args) {
         try {
-            //  LogClass k=new LogClass("files/log.txt");
+            // LogClass k=new LogClass("files/log.txt");
             // k.createRandLog();
 
             menu();
@@ -34,8 +28,8 @@ public class Diplomatiki {
         String bigger_log = "files/largeLog.txt";
         String small_log = "files/smallLog.txt";
         String c;
-        // LogClass j=new LogClass("files/log3.txt");
-        //j.createRandLog();
+        // LogClass j=new LogClass("files/log3.txt");//Creates a new random log file
+        // j.createRandLog();
         do {
             System.out.println("-- -- -- Type 1 to add query and view results :");
             System.out.println("-- -- -- Type 2 to create graph for random large log file (largeLog) :");
@@ -47,13 +41,15 @@ public class Diplomatiki {
             Scanner answer = new Scanner(System.in);
             Scanner sc = new Scanner(System.in);
             int choice = sc.nextInt();
+
             switch (choice) {
+
                 case 1:
-                    LogClass l = new LogClass(small_log);/* Ο constructor της κλάσης LogClass παιρνει ως παράμετρο 
-                                                             το όνομα του log αρχείου που θα χρησιμοποιηθεί*/
+                    LogClass l = new LogClass(small_log);
                     addQuery(l, g);
                     System.out.println("Query added to log file!");
                     break;
+
                 case 2: {
                     g.takeLog(bigger_log);
                     g.viewStats();
@@ -73,6 +69,7 @@ public class Diplomatiki {
 
                     break;
                 }
+
                 case 3: {
                     g.takeLog(small_log);
                     g.viewStats();
@@ -92,6 +89,7 @@ public class Diplomatiki {
 
                     break;
                 }
+
                 case 4: {
                     g.importGraph();
 
@@ -104,21 +102,26 @@ public class Diplomatiki {
 
                     break;
                 }
+
                 default:
                     System.exit(0);
             }
+
             System.out.println("************************************************");
             System.out.println("Do you want to run the PageRank algorithm? (Y/N)");
             System.out.println("************************************************");
             c = answer.nextLine();
+
             if (c.equalsIgnoreCase("Y")) {
                 g.runPageRank();
             }
+
             System.out.println();
             System.out.println("************************************************");
             System.out.println("Do you want to run the Weighted-PageRank algorithm? (Y/N)");
             System.out.println("************************************************");
             c = answer.nextLine();
+
             if (c.equalsIgnoreCase("Y")) {
                 System.out.println();
                 System.out.println(".....Please Enter keyword : ");
@@ -129,7 +132,6 @@ public class Diplomatiki {
         } while (true);
 
     }
-// Μέθοδος που δημιουργεί μια νέα καταχώρηση στο αρχείο log σύμφωνα με τις παραμέτρους που θέτει ο χρήστης
 
     public static void addQuery(LogClass log, Graph g) {
         String[] array = new String[5];

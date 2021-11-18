@@ -1,19 +1,15 @@
-/*
-321/2011117 Πάναλης Κυριάκος
- */
 package diplomatiki;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Κλάση που αντιπροσωπεύει μια ακμή του γράφου*/
+/*Class that represents an edge of the graph*/
 public class Edge implements Serializable {
 
     private int edgeId = 0;
     private List<String> tags;
     private int count = 0;
-
     private List<String> tList = new ArrayList<>();
 
     Edge() {
@@ -31,24 +27,22 @@ public class Edge implements Serializable {
         tags = convertTags(strArr);
     }
 
-    public void setQueryCount(int s) {//πλήθος ερωτημάτων που αντιστοιχούν σε μια ακμή
+    public void setQueryCount(int s) {
         count = s;
     }
 
     public List<String> convertTags(String[] t) {
         count++;
         for (int i = 0; i < t.length; i++) {
-            if (!tList.contains(t[i])) { // έλεγχος για διπλότυπα
+            if (!tList.contains(t[i])) {
 
                 tList.add(t[i]);
             }
-
         }
-
         return tList;
     }
 
-    public int getQueryCount() {//πλήθος ερωτημάτων που αντιστοιχούν σε μια ακμή
+    public int getQueryCount() {
         return count;
     }
 

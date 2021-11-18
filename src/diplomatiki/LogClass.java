@@ -1,6 +1,3 @@
-/*
-321/2011117 Πάναλης Κυριάκος
- */
 package diplomatiki;
 
 import java.io.BufferedReader;
@@ -13,6 +10,7 @@ import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//This class creates a rendom file that represents the users queries 
 
 public class LogClass {
 
@@ -20,11 +18,11 @@ public class LogClass {
     private File logFile;
 
     private int lastLine = 0;
-    private int lX = 24;//  min x αριστερά από την υποδιαστολή
-    private int lΥ = -124;//min y αριστερά από την υποδιαστολή
-    private int hX = 48;//highest x αριστερά από την υποδιαστολή
-    private int hY = -69;//highest y αριστερά από την υποδιαστολή
-    private int I = 2000;//πόσες εγγραφές θα κατασκευαστούν
+    private int lX = 24;//  min x (24.xxxx)
+    private int lΥ = -124;//min y (-124.xxxxx)
+    private int hX = 48;//highest x (48.xxxxx)
+    private int hY = -69;//highest y (-69.xxxxx)
+    private int I = 2000;//how many "queries" will be generated
     private final String[] keywords = {"Burgers", "American", "Fish And Chips", "International", "Mediterranean", "Sandwiches", "Mongolian", "Fusion", "European", "Tapas",
         "Mexican", "Southwestern", "Tex Mex", "Cajun", "Creole", "Bistro", "Grill", "Seafood", "Steak", "Pizza", "Subs", "Persian", "American", "Middle Eastern",
         "Indian", "Asian", "Deli", "Juices", "Pakistani", "Seafood", "Smoothies", "German", "Austrian", "Chinese", "American", "Californian", "Deli", "Diner", "Greek", "Italian",
@@ -34,7 +32,6 @@ public class LogClass {
 
     LogClass() {
     }
-//constructor που καθορίζει το αρχείο με τις εγγραφές 
 
     LogClass(String fileName) {
         logFile = new File(fileName);
@@ -48,7 +45,6 @@ public class LogClass {
         idCount = getLastLine();
 
     }
-//μέθοδος που χρησιμοποιείται για την δημιουργία τυχαίου log αρχείου
 
     public void createRandLog() {
         String x, y, r, k, o, ka;
@@ -73,7 +69,6 @@ public class LogClass {
         }
 
     }
-//μέθοδος που χρησιμοποιείται για την δημιουργία τυχαίου log αρχείου
 
     public String randomInt(int min, int max) {
 
@@ -81,7 +76,6 @@ public class LogClass {
         String s = String.valueOf(a);
         return s;
     }
-//μέθοδος που χρησιμοποιείται για την δημιουργία τυχαίου log αρχείου
 
     public String randomDoubleGen(int min1, int max1, int min2, int max2) {
 
@@ -96,7 +90,6 @@ public class LogClass {
 
     }
 
-    //μέθοδος που επιστρέφει τον αριθμό των γραμμών στο log file
     public int getLastLine() {
 
         String last, line;
@@ -114,7 +107,6 @@ public class LogClass {
 
         return cnt;
     }
-//Εγγραφή νέας καταχώρησης στο αρχείο log
 
     public void writeToLog(String x, String y, String radius, String k, String[] keywords) {
         BufferedWriter bw = null;

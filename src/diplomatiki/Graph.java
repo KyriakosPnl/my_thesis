@@ -1,6 +1,3 @@
-/*
-
- */
 package diplomatiki;
 
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
@@ -34,21 +31,20 @@ import org.jgrapht.nio.dot.DOTExporter;
 import org.jgrapht.nio.dot.DOTImporter;
 import org.jgrapht.util.SupplierUtil;
 
-/*Στην παρούσα κλάση περιλαμβάνονται οι κυριότερες μέθοδοι που σχετίζονται με
-  την δημιουργία του γράφου*/
+/*This class contains the most important methods for the creation of the graph*/
 public class Graph {
 
     private Vertex vObject;
-    private BufferedReader in = null;//χρήση για ανάγνωση από αρχείο
-    private BufferedReader inLog = null;//χρήση για ανάγνωση από αρχείο
-    private String line;//Μεταβλητη που χρησιμοποιείτε για ανάγνωση από αρχείο
-    private final static double AVERAGE_RADIUS_OF_EARTH_M = 6371000;//μέση απόσταση από το κέντρο της γης σε μέτρα
-    private ArrayList<Vertex> vertexList = new ArrayList<>();//λίστα στην οποία αποθηκεύονται όλες οι κορυφές
-    private ArrayList<Vertex> tempList;//λίστα που χρησιμοποιείται για προσωρινή αποθήκευση κορυφών
+    private BufferedReader in = null;
+    private BufferedReader inLog = null;
+    private String line;
+    private final static double AVERAGE_RADIUS_OF_EARTH_M = 6371000;
+    private ArrayList<Vertex> vertexList = new ArrayList<>();
+    private ArrayList<Vertex> tempList;
     private int edgeId = 0;
     private org.jgrapht.Graph<Vertex, Edge> dGraph;
     /*private double lowX=999; 
-    private double lowY;    //μεταβλητές που χρησιμοποιούνται για την εύρεση των max και min συντεταγμένων
+    private double lowY; //variables that are used to find the radius of the area 
     private double highX;
     private double highY=-999;
      */
@@ -62,7 +58,6 @@ public class Graph {
         this.dGraph = new DefaultDirectedWeightedGraph<>(Edge.class);
 
     }
-//Μέθοδος που διαβάζει το log file και καλεί την μέθοδο που πραγματοποιεί την αναζήτηση στην βάση με τα εστιατόρια
 
     public int randomInt(int min, int max) {
 
@@ -85,7 +80,7 @@ public class Graph {
                 double logX = Double.parseDouble(arrOfStr[1]);
                 double logY = Double.parseDouble(arrOfStr[2]);
                 int rad = Integer.parseInt(arrOfStr[3]);
-                /* k */ int k = 15;//Integer.parseInt(arrOfStr[4]);
+        /* k */ int k = 15;//Integer.parseInt(arrOfStr[4]);
                 String words = arrOfStr[5].replace("[", "").replace("]", "");
                 String[] logKwords = words.split(",");
                 searchInDB(logX, logY, rad, logKwords, k);
@@ -103,14 +98,12 @@ public class Graph {
         } catch (IOException ex) {
             Logger.getLogger(Graph.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-//Μέθοδος που παίρνει ως όρισμα μία log εγγραφή και πραγματοποιεί αναζήτηση στο αρχείο με τα εστιατόρια
 
     public void searchInDB(double logX, double logY, int radius, String[] logKwords, int k) {
         try {
             in = new BufferedReader(new FileReader(data));
-            tempList = new ArrayList<>();//δημιουργία λίστας για κάθε εγγραφή log
+            tempList = new ArrayList<>();
             while ((line = in.readLine()) != null) {
 
                 String[] arrOfStr = line.split("\\|");
@@ -122,35 +115,34 @@ public class Graph {
 
                 String words = arrOfStr[5];
                 String[] DBkWords = words.split(",");
-                //υπολογισμος απόστασης απο log σε resturant
                 int d = calculateDistanceInKilometer(logX, logY, restX, restY);
                 // findLowestX(restX);
                 // findLowestY(restY);
                 // findHighestX(restX);
                 // findHighestY(restY);
-                if (radius >= d) {// εαν το εστιατόριο βρίσκεται στην επιθυμητή ακτίνα
+                if (radius >= d) {// if the restaurant locates in the desires radius
 
                     boolean match = false;
                     int matchCount = 0;
-                    //έλεγχος για λέξεις κλειδιά 
+                    //check keywords 
                     int w = logKwords.length;
-                    for (int i = 0; i < w; i++) { //προσπέλαση του πίνακα με τις λέξεις κλειδιά της log εγγραφής
+                    for (int i = 0; i < w; i++) { 
                         for (String DBkWord : DBkWords) {
-                            //προσπέλαση του πίνακα με τις λέξεις κλειδιά του εστιατορίου
+                            
                             if (logKwords[i].replaceAll("\\s+", "").equalsIgnoreCase(DBkWord.replaceAll("\\s+", ""))) {
-                                //ελεγχος εαν ταιριάζουν οι λέξεις κλειδια
+                               
                                 matchCount++;
                             }
                         }
                     }
                     if (matchCount >= w) {
-                        int index = checkforVertex(restId);//έλεγχος για το αν υπάρχει ήδη κορυφή
-                        if (index != -1) {//αν υπάρχει ήδη κορυφή
-                            tempList.add(vertexList.get(index));//Λίστα που κρατάει προσωρινά ολες τις εγγραφες που ταιριάζουν στο ερώτημα
-                            vertexList.get(index).setDistanceFromLog(d);//ενημέρωση της απόστασης από νέο log
+                        int index = checkforVertex(restId);//check if the vertex exists in the graph
+                        if (index != -1) {//if exists
+                            tempList.add(vertexList.get(index));
+                            vertexList.get(index).setDistanceFromLog(d);
 
-                        } else {//αν δεν υπάρχει κορυφή
-                            Vertex newVertex = new Vertex(restId, name, rank, restX, restY, DBkWords);//δημιουργία νέας
+                        } else {//vertex does not exists in the graph
+                            Vertex newVertex = new Vertex(restId, name, rank, restX, restY, DBkWords);
                             newVertex.setDistanceFromLog(d);
                             tempList.add(newVertex);
                         }
@@ -171,30 +163,29 @@ public class Graph {
 
     }
 
-//Μέθοδος που είναι υπεύθυνη για την δημιουργία του γράφου
     public void createGraph(ArrayList<Vertex> tempList, int k, String[] logKeywords) {
 
-        Collections.sort(tempList); //ταξινόμηση των κορυφών με βάση την απόσταση
-        if (k >= tempList.size()) { //εαν υπάρχουν λιγότερα από τα επιθυμητα εστιατόρια 
+        Collections.sort(tempList); //sort vertexes based on distance
+        if (k >= tempList.size()) { //if there are less than the desired restaurants
             k = tempList.size();
         } else {
-            tempList = trimSortedList(tempList, k);//διαγραφή των επιπλέον κορυφών από την λίστα
+            tempList = trimSortedList(tempList, k);
         }
-        if (k > 1) {//εαν η ερώτηση δεν είναι τοπ-1
-            for (k = k - 1; k >= 0; k--) {//ξεκινάμε από τον κόμβο με την μεγαλύτερη απόσταση από την τοποθεσία του χρήστη
+        if (k > 1) {//not top-1 query
+            for (k = k - 1; k >= 0; k--) {//start from the most far vertex from users location
 
                 if (k >= 1) {
-                    if (tempList.get(k).getExistInGraph()) {//υπάρχει ο κόμβος κ
+                    if (tempList.get(k).getExistInGraph()) {
 
-                        if (tempList.get(k - 1).getExistInGraph()) {//υπάρχουν και οι δύο κόμβοι
-                            if (!dGraph.containsEdge(tempList.get(k), tempList.get(k - 1))) {//δεν συνδέονται μεταξύ τους
+                        if (tempList.get(k - 1).getExistInGraph()) {//both vertexes exist
+                            if (!dGraph.containsEdge(tempList.get(k), tempList.get(k - 1))) {//they are not connected
                                 edgeId++;
                                 dGraph.addEdge(tempList.get(k), tempList.get(k - 1), new Edge(logKeywords));
 
-                            } else {//συνδέονται μεταξύ τους
+                            } else {
                                 dGraph.getEdge(tempList.get(k), tempList.get(k - 1)).convertTags(logKeywords);
                             }
-                        } else {//υπάρχει ο κ αλλά όχι ο κ-1
+                        } else {//k exists but not k-1
                             tempList.get(k - 1).setExistInGraph(true);
                             vertexList.add(tempList.get(k - 1));
                             dGraph.addVertex(tempList.get(k - 1));
@@ -202,15 +193,15 @@ public class Graph {
                             dGraph.addEdge(tempList.get(k), tempList.get(k - 1), new Edge(logKeywords));
 
                         }
-                    } else {//δεν υπάρχει ο κόμβος κ
+                    } else {//k does not exist
                         tempList.get(k).setExistInGraph(true);
                         vertexList.add(tempList.get(k));
                         dGraph.addVertex(tempList.get(k));
-                        if (tempList.get(k - 1).getExistInGraph()) {//υπάρχει ο k-1
+                        if (tempList.get(k - 1).getExistInGraph()) {//k-1 exists
                             edgeId++;
                             dGraph.addEdge(tempList.get(k), tempList.get(k - 1), new Edge(logKeywords));
 
-                        } else {//δεν υπάρχει ούτε ο κ-1
+                        } else {//κ-1 does not exist
                             tempList.get(k - 1).setExistInGraph(true);
                             vertexList.add(tempList.get(k - 1));
                             dGraph.addVertex(tempList.get(k - 1));
@@ -226,14 +217,14 @@ public class Graph {
             }
 
         } else {
-            //εαν το ερώτημα είναι τοπ-1 τότε απλά δημιουργείται ο κόμβος χωρίς κάποια ακμη
+            //if the query is Top-1 we just create a vertex
             if (!tempList.get(0).getExistInGraph()) {
                 tempList.get(0).setExistInGraph(true);
-                vertexList.add(tempList.get(0));//ανανέωση της global λίστας με τους κόμβους
-                dGraph.addVertex(tempList.get(0));//προσθήκη του κόμβου στον γράφο
+                vertexList.add(tempList.get(0));
+                dGraph.addVertex(tempList.get(0));
             }
-            System.out.println("Top-1 : " + tempList.get(0).getName() + " rest id: " + tempList.get(0).getId() + " Distance in meters :" + tempList.get(0).getDistance());
-
+            System.out.println("Top-1 : " + tempList.get(0).getName() + " rest id: "
+                    + tempList.get(0).getId() + " Distance in meters :" + tempList.get(0).getDistance());
         }
     }
 
@@ -271,7 +262,7 @@ public class Graph {
         System.out.println();
     }
 
-//Μέθοδος που ελέγχει εαν υπάρχει ήδη κορυφή για κάποιο συγκεκριμένο εστιατόριο
+//Method that check if there is already a vertex for the restaurant
     public int checkforVertex(String restId) {
         int found = -1;
         for (int i = 0; i < vertexList.size(); i++) {
@@ -298,7 +289,6 @@ public class Graph {
         return (int) (Math.round(AVERAGE_RADIUS_OF_EARTH_M * c));
     }
 
-//διαγραφή επιπλέον κόμβων από μία λίστα κορυφών
     public ArrayList<Vertex> trimSortedList(ArrayList<Vertex> l, int k) {
         int i;
 
@@ -308,7 +298,6 @@ public class Graph {
 
         return l;
     }
-//μέθοδος που χρησιμοποιείτε για την οπτικοποίηση του γράφου
 
     public void drawGraph() throws IOException {
         JGraphXAdapter<Vertex, Edge> graphAdapter = new JGraphXAdapter<Vertex, Edge>(dGraph);
@@ -317,7 +306,7 @@ public class Graph {
         mxHierarchicalLayout layout = new mxHierarchicalLayout(graphAdapter);
 
         Hashtable<String, Object> style = new Hashtable<String, Object>();
-        //μορφοποίηση των κόμβων
+        //style vertexes
         style.put(mxConstants.STYLE_FILLCOLOR, "#B8FFF5");
         style.put(mxConstants.STYLE_STROKEWIDTH, 0.8);
         style.put(mxConstants.STYLE_STROKECOLOR, "#000000");
@@ -326,7 +315,7 @@ public class Graph {
         style.put(mxConstants.STYLE_FONTSIZE, 10);
 
         mxStylesheet stylesheet = graphAdapter.getStylesheet();
-        //μορφοποίηση των ακμών
+        //style edges
         Map<String, Object> edgeStyle = stylesheet.getDefaultEdgeStyle();
         edgeStyle.put(mxConstants.STYLE_STROKECOLOR, "#000000");
         edgeStyle.put(mxConstants.STYLE_EDGE, mxConstants.ARROW_SIZE = 10);
@@ -411,7 +400,7 @@ public class Graph {
     public void importGraph() {
 
         DOTImporter<Vertex, Edge> importer = new DOTImporter<>();
-        org.jgrapht.Graph<Vertex, Edge> graph = new DefaultDirectedWeightedGraph<Vertex, Edge>(SupplierUtil.createSupplier(Vertex.class), SupplierUtil.createSupplier(Edge.class));
+        org.jgrapht.Graph<Vertex, Edge> graph = new DefaultDirectedWeightedGraph<>(SupplierUtil.createSupplier(Vertex.class), SupplierUtil.createSupplier(Edge.class));
 
         Map<Vertex, Map<Vertex, Attribute>> attrs = new HashMap<>();
 
@@ -460,7 +449,7 @@ public class Graph {
 
         });
 
-        try {
+        try {      
             importer.importGraph(graph, new FileReader("files/graph.dot"));
 
         } catch (FileNotFoundException ex) {
@@ -489,8 +478,7 @@ public class Graph {
         dGraph = graph;
 
     }
-    /* μέθοδοι που χρησιμοποιήθηκαν κατα την ευρεση της έκτασης που
-       βρίσκονται τα εστιατόρια
+    /* these methods were used to find the area that contained the restaurants
    
     public void findLowestX(double o) {
 

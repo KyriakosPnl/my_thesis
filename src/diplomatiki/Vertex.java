@@ -1,13 +1,10 @@
-/*
-321/2011117 Πάναλης Κυριάκος
- */
 package diplomatiki;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-/*Κλάση που αντιπροσωπεύει μια κορυφή του γράφου*/
+/*This class represents a vertex of the graph*/
 public class Vertex implements Comparable, Serializable {
 
     private String id;
@@ -16,7 +13,7 @@ public class Vertex implements Comparable, Serializable {
     private double lx;
     private double ly;
     private String[] keywords;
-    private ArrayList<Edge> allEdges = new ArrayList<>();//λίστα που περιέχει όλες τις ακμές που σχετίζονται με τον κόμβο
+    private ArrayList<Edge> allEdges = new ArrayList<>();
     private int distance = -1;
     private boolean exists = false;
     private double pRScore = 0;
@@ -130,5 +127,4 @@ public class Vertex implements Comparable, Serializable {
         return this.distance - compare;
 
     }
-
 }
