@@ -46,6 +46,29 @@ In the current implementation, we have 2 log files one small (files/smallLog.txt
 
 # Creation of the Graph
 
+The creation of the graph the main contribution of the current thesis. The graph is created a specific way that takes advandage of the spatio-textual data. An example could be the best way to explain it.
+
+- So, let's assume that we have the following data that represent 5 rows of the log file:
+
+ ID    |k | Latitude (X)          | Longitude (Y)      | Keywords|
+ -----------|--------------------------|----------------|----------------------------|------------|
+ 1| 3 | 33.672452 |  -118.004725 |  American |       
+ 2| 3 | 33.672452 | -118.004725 |  Deli |    
+ 3| 2 | 32.870138   | -120.084675| Pizza |
+ 4| 3 | 32.870138 | -120.084675 |   American, Burgers |    
+ 5| 1 | 30.862141   | -117.501512 | Smoothies, Seafood, Juices, Soup |
 
 
+- Next, we take each query and search for restaurants that match . 
+- When (and if) we find the restaurants that match, we create a graph based on the distance from the user.
+- Of course, every node represents a restaurant, and every edge has tags (keywords that match)
 
+The following picture, shows the graph that results from the table above:
+
+![files/graph_example.PNG](/files/graph_example.PNG)
+
+The implementation of the creation of the graph, is in the src/Graph.java class.
+
+# Ranking the graph
+
+Of course now that we created the graph, we are ready to run some ranking algorithms. In this case we decided to use the Page-Rank and also the weighted Page-Rank algorithm. It is obvious that since we have created the graph we can use every ranking algorithm that applies to graphs.
