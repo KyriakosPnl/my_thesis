@@ -23,4 +23,29 @@ After the creation of the graph, we use ranking algorithms, to extract some usef
 - Import / Export the graph.
 - Visualize the final graph.
 
-The implementation is in Java language, and the jgrapht (1.4 version) library (https://jgrapht.org). 
+The implementation is in Java language, and the jgrapht (1.4 version) library (https://jgrapht.org).
+
+# Data
+
+ The term *spatio-textual data* refers to data that is described by geographical coordinates (X, Y), as well as by a set of keywords. In our case, 
+we have a relatively large amount of spatio-textual data wich refer to restaurants ( files/restaurants.txt ). The following table consists of data like the ones we use:
+
+ID    |Restaurant_name                    | Latitude (X)          | Longitude (Y)      | Keywords|
+-----------|--------------------------|----------------|----------------------------|------------|
+ 1456|Carl's Jr  | 36.807414  |  -119.884527 |  American, Burgers, Fast Food |       
+ 1457|Picnic Garden | 40.765149 | -73.818978 |   Barbecue, Japanese, Korean |    
+ 1458|Star of India | 42.460714   | -83.136283 | Indian, Pakistan |
+
+ An other type of Data that we use is the log file, wich consists of hypothetical queries that our users use to get a response from the. The log file data consists of:
+- The possition of the user (Latitude(X) and Longitude(Y)).
+- An amount of keywords that represent the type of food that the user wants to eat.
+- An amount of restaurants that the user wants to recieve as a response (k).
+- A radius which represents the max distance between the user and the restaurant(s). 
+
+In the current implementation, we have 2 log files one small (files/smallLog.txt) and one bigger(files/largeLog.txt). The data of the log files were created randomly by the src/LogClass.java.
+
+# Creation of the Graph
+
+
+
+
